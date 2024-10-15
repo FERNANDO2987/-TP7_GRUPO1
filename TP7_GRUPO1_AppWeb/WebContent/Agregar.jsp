@@ -15,42 +15,54 @@
     </nav>  
 	<h1>Agregar seguros</h1>  
 	
-	<form method="get" action="Inicio.jsp">
+	<form method="get" action="servletSeguro">
 	
 		<table>
-		<tr>
-			<td>Id Seguro:</td>
-			<td><%= %></td>
-		</tr>
-		<tr>
-			<td>Descripción:</td>
-			<td><input type="text" name="txtDescripcion"></td>
-		</tr>
-		<tr>
-			<td>Tipo de seguro:</td>
-			<td>
-				<select name="seguro">
-					<% %>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>Costo de contratación:</td>
-			<td><input type="text" name="txtCostoContratacion"></td>
-		</tr>
-		<tr>
-			<td>Costo máximo asegurado:</td>
-			<td><input type="text" name="txtCostoMaximo"></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<input type="submit" name="btnAceptar" value="Aceptar">
-			</td>
-		</tr>
-	</table>
+			<tr>
+				<td>Id Seguro:</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Descripción:</td>
+				<td><input type="text" name="txtDescripcion"></td>
+			</tr>
+			<tr>
+				<td>Tipo de seguro:</td>
+				<td>
+					<select name="seguro">
+						
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Costo de contratación:</td>
+				<td><input type="text" name="txtCostoContratacion"></td>
+			</tr>
+			<tr>
+				<td>Costo máximo asegurado:</td>
+				<td><input type="text" name="txtCostoMaximo"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="submit" name="btnAceptar" value="Aceptar">
+				</td>
+			</tr>
+		</table>
 	
 	</form>
+	
+<%
+	int filas = Integer.parseInt(request.getAttribute("cantFilas").toString());
+%>
+<%
+	if(filas==1)
+	{
+		%>
+		Seguro agregado con éxito
+		<%		
+	}
+%>
 	
 </body>
 </html>
