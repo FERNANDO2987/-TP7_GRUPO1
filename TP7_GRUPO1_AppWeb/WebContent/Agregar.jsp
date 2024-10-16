@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <%@ page import="java.util.ArrayList" %>  
+   <%@ page import="entidad.TipoSeguro" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -29,9 +31,15 @@
 			<tr>
 				<td>Tipo de seguro:</td>
 				<td>
-					<select name="seguro">
-						
-					</select>
+                  <select id="nitfuentes" name="seguro" class="form-control" required>  
+    <option value="">Seleccione</option>  
+
+</select>
+
+                    
+                      
+			       
+			       
 				</td>
 			</tr>
 			<tr>
@@ -52,8 +60,23 @@
 	
 	</form>
 	
+	
+	
+
+
+	
+	
 <%
-	int filas = Integer.parseInt(request.getAttribute("cantFilas").toString());
+
+int filas =0;
+if(request.getAttribute("cantFilas")!=null)
+{
+	filas = Integer.parseInt(request.getAttribute("cantFilas").toString()); 
+}
+
+
+
+
 %>
 <%
 	if(filas==1)
@@ -63,6 +86,12 @@
 		<%		
 	}
 %>
+
+
+
+			 
+  
+
 	
 </body>
 </html>
