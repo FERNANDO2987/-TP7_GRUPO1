@@ -20,43 +20,51 @@ public class SegurosDao {
 	private String dbName = "segurosGroup";
 
 	
-	public int agregarSeguro(Seguro seguro) {
-	    int filas = 0;
-	    Connection cn = null;
-	    try {
-	        // Cargar el driver de MySQL
-	        Class.forName("com.mysql.jdbc.Driver");
+	public int agregarSeguro(Seguro seguro) {  
+	    int idGenerado = -1; // Inicializamos con un valor que indica que no se ha generado un ID  
+	    Connection cn = null;  
+	    PreparedStatement pst = null;  
+	    
+	    try {  
+	        // Cargar el driver de MySQL  
+	        Class.forName("com.mysql.jdbc.Driver");  
 
-	        // Conectarse a la base de datos
-	        cn = DriverManager.getConnection(host + dbName, user, pass);
+	        // Conectarse a la base de datos  
+	        cn = DriverManager.getConnection(host + dbName, user, pass);  
 
-	        // Preparar la consulta con PreparedStatement para evitar inyección SQL
-	        String query = "INSERT INTO seguros (descripcion, idTipo, costoContratacion, costoAsegurado) VALUES (?, ?, ?, ?)";
-	        PreparedStatement pst = cn.prepareStatement(query);
+	        // Preparar la consulta con PreparedStatement para evitar inyección SQL  
+	        String query = "INSERT INTO seguros (descripcion, idTipo, costoContratacion, costoAsegurado) VALUES (?, ?, ?, ?)";  
+	        pst = cn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS); // Permitir la obtención de claves generadas  
 	        
-	        // Asignar valores a los parámetros
-	        pst.setString(1, seguro.getDescripcion());
-	        pst.setInt(2, seguro.getIdTipo());
-	        pst.setBigDecimal(3, BigDecimal.valueOf(seguro.getCostoContratacion()));
-	        pst.setBigDecimal(4, BigDecimal.valueOf(seguro.getCostoAsegurado()));
+	        // Asignar valores a los parámetros  
+	        pst.setString(1, seguro.getDescripcion());  
+	        pst.setInt(2, seguro.getIdTipo());  
+	        pst.setBigDecimal(3, BigDecimal.valueOf(seguro.getCostoContratacion()));  
+	        pst.setBigDecimal(4, BigDecimal.valueOf(seguro.getCostoAsegurado()));  
 
-	        // Ejecutar la actualización
-	        filas = pst.executeUpdate();
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        // Cerrar la conexión para liberar recursos
-	        if (cn != null) {
-	            try {
-	                cn.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
-	    return filas;
+	        // Ejecutar la actualización  
+	        pst.executeUpdate();  
+
+	        // Obtener la clave generada  
+	        ResultSet generatedKeys = pst.getGeneratedKeys();  
+	        if (generatedKeys.next()) {  
+	            idGenerado = generatedKeys.getInt(1); // Recuperar el ID generado  
+	        }  
+	        
+	    } catch (ClassNotFoundException e) {  
+	        e.printStackTrace();  
+	    } catch (SQLException e) {  
+	        e.printStackTrace();  
+	    } finally {  
+	        // Cerrar la conexión para liberar recursos  
+	        try {  
+	            if (pst != null) pst.close();  
+	            if (cn != null) cn.close();  
+	        } catch (SQLException e) {  
+	            e.printStackTrace();  
+	        }  
+	    }  
+	    return idGenerado; // Devuelve el ID generado  
 	}
 
 	
