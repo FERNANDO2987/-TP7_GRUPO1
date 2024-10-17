@@ -144,5 +144,47 @@ public class SegurosDao {
 	    
 	    return seguro;
 	}	
+	
+	
+	public ArrayList<Seguro> obtenerSegurosPorTipo(String tipoSeguro) {  
+	    ArrayList<Seguro> lista = new ArrayList<>();  
+	    Connection conn = null;  
+	    PreparedStatement pstmt = null;  
+	    ResultSet rs = null;  
+
+	    try {  
+	        conn = DriverManager.getConnection(host + dbName, user, pass);  
+
+	        // Utiliza un placeholder (?) en la consulta  
+	        String query = "SELECT idSeguro, descripcion, idTipo, costoContratacion, costoAsegurado FROM seguros WHERE descripcion = ?";  
+	        pstmt = conn.prepareStatement(query);  
+	        pstmt.setString(1, tipoSeguro); // Asigna el tipo de seguro recibido al parámetro  
+
+	        rs = pstmt.executeQuery();  
+
+	        while (rs.next()) {  
+	            Seguro seguro = new Seguro();  
+	            seguro.setIdSeguro(rs.getInt("idSeguro"));  
+	            seguro.setDescripcion(rs.getString("descripcion"));  
+	            seguro.setIdTipo(rs.getInt("idTipo"));  
+	            seguro.setCostoContratacion(rs.getDouble("costoContratacion"));  
+	            seguro.setCostoAsegurado(rs.getDouble("costoAsegurado"));  
+
+	            lista.add(seguro);  
+	        }  
+	    } catch (Exception e) {  
+	        e.printStackTrace();  
+	    } finally {  
+	        try {  
+	            if (rs != null) rs.close();  
+	            if (pstmt != null) pstmt.close();  
+	            if (conn != null) conn.close();  
+	        } catch (Exception ex) {  
+	            ex.printStackTrace();  
+	        }  
+	    }  
+
+	    return lista;  
+	}
 
 }
