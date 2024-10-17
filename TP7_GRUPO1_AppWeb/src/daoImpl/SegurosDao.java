@@ -156,9 +156,9 @@ public class SegurosDao {
 	        conn = DriverManager.getConnection(host + dbName, user, pass);  
 
 	        // Utiliza un placeholder (?) en la consulta  
-	        String query = "SELECT idSeguro, descripcion, idTipo, costoContratacion, costoAsegurado FROM seguros WHERE descripcion = ?";  
+	        String query = "SELECT idSeguro, seguros.descripcion, seguros.idTipo, costoContratacion, costoAsegurado FROM seguros inner join tiposeguros on tiposeguros.idTipo = seguros.idTipo WHERE tiposeguros.descripcion like ?";  
 	        pstmt = conn.prepareStatement(query);  
-	        pstmt.setString(1, tipoSeguro); // Asigna el tipo de seguro recibido al parámetro  
+	        pstmt.setString(1, tipoSeguro); // Asigna el tipo de seguro recibido al parámetro
 
 	        rs = pstmt.executeQuery();  
 

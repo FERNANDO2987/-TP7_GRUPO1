@@ -13,7 +13,7 @@
 <nav>  
     <a href="Inicio.jsp">Inicio</a> |  
     <a href="Agregar.jsp">Agregar seguro</a> |  
-    <a href="Listar.jsp">Listar seguros</a>  
+    <a href="servletListar?lista=1">Listar seguros</a>  
 </nav>  
 <h1>Agregar seguros</h1>  
 
