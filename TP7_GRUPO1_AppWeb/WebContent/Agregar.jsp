@@ -31,8 +31,8 @@
 			<tr>
 				<td>Tipo de seguro:</td>
 				<td>
-                  <select id="nitfuentes" name="seguro" class="form-control" required>  
-    <option value="">Seleccione</option>  
+                  <select name="seguro">  
+
 
 </select>
 
