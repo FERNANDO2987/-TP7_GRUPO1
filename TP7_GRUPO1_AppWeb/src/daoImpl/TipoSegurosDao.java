@@ -53,6 +53,46 @@ public class TipoSegurosDao {
 
 	    return lista;
 	}
+	
+	
+	
+	public ArrayList<TipoSeguro> buscarPorTipoSeguro(String descripcion) {
+	    ArrayList<TipoSeguro> lista = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        conn = DriverManager.getConnection(host + dbName, user, pass);
+	        String query = "SELECT * FROM tipoSeguros WHERE descripcion LIKE ?";
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, "%" + descripcion + "%"); // Uso de LIKE para buscar coincidencias parciales
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            TipoSeguro tipo = new TipoSeguro();
+	            tipo.setIdTipo(rs.getInt("idTipo"));
+	            tipo.setDescripcion(rs.getString("descripcion"));
+
+	            lista.add(tipo);
+	        }
+
+	        System.out.println("Cantidad de tipos de seguros recuperados: " + lista.size());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+
+	    return lista;
+	}
+
 
 
 }
