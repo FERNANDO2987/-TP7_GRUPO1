@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ISeguroDao;
 import daoImpl.SegurosDao;
 import entidad.Seguro;
+import entidad.TipoSeguro;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -78,7 +79,7 @@ public class servletSeguro extends HttpServlet {
 
                 Seguro s = new Seguro();
                 s.setDescripcion(descripcion);
-                s.setIdTipo(tipoSeguroId);
+                s.setTipo(new TipoSeguro(tipoSeguroId, ""));
                 s.setCostoContratacion(costoContratacion);
                 s.setCostoAsegurado(costoMaximo);
 

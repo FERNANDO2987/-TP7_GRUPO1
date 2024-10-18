@@ -39,7 +39,7 @@ public class SegurosDao implements ISeguroDao {
 	        
 	        // Asignar valores a los parámetros  
 	        pst.setString(1, seguro.getDescripcion());  
-	        pst.setInt(2, seguro.getIdTipo());  
+	        pst.setInt(2, seguro.getTipo().getIdTipo());  
 	        pst.setBigDecimal(3, BigDecimal.valueOf(seguro.getCostoContratacion()));  
 	        pst.setBigDecimal(4, BigDecimal.valueOf(seguro.getCostoAsegurado()));  
 

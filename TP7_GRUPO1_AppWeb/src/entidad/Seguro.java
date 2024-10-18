@@ -51,11 +51,6 @@ public class Seguro {
 	}
 
 
-	public void setIdTipo(int idTipo) {
-		this.tipo.setIdTipo(idTipo);
-	}
-
-
 	public double getCostoContratacion() {
 		return costoContratacion;
 	}
