@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import dao.ITipoSeguroDao;
 import entidad.TipoSeguro;
 
-public class TipoSegurosDao {
+public class TipoSegurosDao implements ITipoSeguroDao {
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";

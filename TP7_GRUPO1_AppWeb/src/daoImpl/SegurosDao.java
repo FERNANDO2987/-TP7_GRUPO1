@@ -9,9 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dao.ISeguroDao;
 import entidad.Seguro;
 
-public class SegurosDao {
+public class SegurosDao implements ISeguroDao {
 	
 	
 	private String host = "jdbc:mysql://localhost:3306/";
@@ -185,6 +186,20 @@ public class SegurosDao {
 	    }  
 
 	    return lista;  
+	}
+
+
+
+
+	@Override
+	public int numeroNuevoRegistro() {
+		final String query = "SELECT CAST(AUTO_INCREMENT AS UNSIGNED) AS ProximoID FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'segurosgroup' AND TABLE_NAME = 'seguros'";
+		Connection cn = null;  
+	    PreparedStatement pst = null;
+	    ResultSet rs = null;
+	    
+	    
+		return 0;
 	}
 
 }
