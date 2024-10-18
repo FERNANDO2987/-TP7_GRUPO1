@@ -55,11 +55,11 @@
         </tr>
         <tr>
             <td>Costo de contratación:</td>
-            <td><input type="text" name="txtCostoContratacion" required></td>
+            <td><input type="number" step="0.1" name="txtCostoContratacion" required></td>
         </tr>
         <tr>
             <td>Costo máximo asegurado:</td>
-            <td><input type="text" name="txtCostoMaximo" required></td>
+            <td><input type="number" step="0.1" name="txtCostoMaximo" required></td>
         </tr>
         <tr>
             <td></td>

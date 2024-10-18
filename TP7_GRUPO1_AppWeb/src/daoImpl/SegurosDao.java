@@ -197,9 +197,29 @@ public class SegurosDao implements ISeguroDao {
 		Connection cn = null;  
 	    PreparedStatement pst = null;
 	    ResultSet rs = null;
+	    int resultado = 0;
+	    try 
+	    {
+	        cn = DriverManager.getConnection(host + dbName, user, pass);
+	        pst = cn.prepareStatement(query);
+	        rs = pst.executeQuery();
+	        rs.next();
+	        resultado = rs.getInt("ProximoID");
+	    }
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pst != null) pst.close();
+	            if (cn != null) cn.close();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+
 	    
-	    
-		return 0;
+		return resultado;
 	}
 
 }

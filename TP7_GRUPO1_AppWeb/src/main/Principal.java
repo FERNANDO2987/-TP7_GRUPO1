@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import dao.ISeguroDao;
 import daoImpl.SegurosDao;
 import daoImpl.TipoSegurosDao;
 import entidad.Seguro;
@@ -63,7 +64,7 @@ public class Principal {
 //
 //	}
 		
-		TipoSegurosDao tipoDAO = new TipoSegurosDao();
+		/*TipoSegurosDao tipoDAO = new TipoSegurosDao();
 		
 		
 	    ArrayList<TipoSeguro> listaTipos = tipoDAO.obtenerTiposSeguros();
@@ -74,7 +75,7 @@ public class Principal {
           System.out.println("-----------------------------");
       }
 	
-		
+		*/
 		
 	}
 }
