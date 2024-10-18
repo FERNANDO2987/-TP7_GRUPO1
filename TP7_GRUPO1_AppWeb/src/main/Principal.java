@@ -1,12 +1,5 @@
 package main;
 
-import java.util.ArrayList;
-
-import dao.ISeguroDao;
-import daoImpl.SegurosDao;
-import daoImpl.TipoSegurosDao;
-import entidad.Seguro;
-import entidad.TipoSeguro;
 
 public class Principal {
 

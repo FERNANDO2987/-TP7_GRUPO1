@@ -12,7 +12,7 @@
 
 <nav>  
     <a href="Inicio.jsp">Inicio</a> |  
-    <a href="Agregar.jsp">Agregar seguro</a> |  
+    <a href="servletSeguro?agregar=1">Agregar seguro</a> |  
     <a href="servletListar?lista=1">Listar seguros</a>  
 </nav>  
 <h1>Agregar seguros</h1>  
@@ -23,8 +23,12 @@
             <td>Id Seguro:</td>
                <td>  
                 <%  
-                    Integer idSeguro = (Integer) request.getAttribute("idSeguro");  
-                    if (idSeguro != null) {  
+                	Integer idSeguro = 0;
+                	if(request.getAttribute("IDProximo") != null)
+                	{
+                		idSeguro = (Integer) request.getAttribute("IDProximo");
+                	}   
+                    if (idSeguro != 0) {  
                         out.print(idSeguro); // Muestra el ID del seguro generado  
                     } else {  
                         out.print("N/A"); // Muestra "N/A" si no hay ID generado  
@@ -40,7 +44,6 @@
             <td>Tipo de seguro:</td>
             <td>
                 <select name="seguro" >
-                    <option value="">Seleccione un tipo de seguro</option>
                     <%
                         TipoSegurosDao tipoSegurosDao = new TipoSegurosDao();
                         ArrayList<TipoSeguro> tiposSeguros = tipoSegurosDao.obtenerTiposSeguros();
@@ -70,14 +73,6 @@
     </table>
 </form>
 
-<%  
-    // Mensaje de éxito  
-    if (idSeguro != null) {  
-%>  
-    <p>Seguro agregado con éxito. ID del seguro: <%= idSeguro %></p>  
-<%  
-    }  
-%> 
 
 </body>
 </html>

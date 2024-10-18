@@ -14,7 +14,7 @@
 <body>  
     <nav>  
         <a href="Inicio.jsp">Inicio</a> |  
-        <a href="Agregar.jsp">Agregar seguro</a> |  
+        <a href="servletSeguro?agregar=1">Agregar seguro</a> |  
         <a href="servletListar?lista=1">Listar seguros</a>  
     </nav>   
 		<%  
@@ -49,7 +49,7 @@
         <tr>  
             <th>ID Seguro</th>  
             <th>Descripción Seguro</th>  
-            <th>ID Tipo</th>  
+            <th>Tipo</th>  
             <th>Costo Contratación</th>  
             <th>Costo Máximo Asegurado</th>  
         </tr>  
@@ -60,21 +60,21 @@
             ArrayList<Seguro> listaSeguros = new ArrayList<Seguro>(); //(ArrayList<Seguro>) request.getAttribute("listaSeguros");
             if(request.getAttribute("listFiltrada")!= null)
             {
-            	listaSeguros = (ArrayList<Seguro>) request.getAttribute("listaFiltrada");
+            		listaSeguros = (ArrayList<Seguro>) request.getAttribute("listaFiltrada");
             }
             
 	        if(request.getAttribute("listaCargada")!= null)
 	        {
-	        	listaSeguros = (ArrayList<Seguro>) request.getAttribute("listaCargada");
+	        		listaSeguros = (ArrayList<Seguro>) request.getAttribute("listaCargada");
 	        }
 	        
-            if (listaSeguros.size() > 1) {  
+            if (listaSeguros.size() >= 1) {  
                 for (Seguro seguro : listaSeguros) {  
         %>  
         <tr>  
             <td><%= seguro.getIdSeguro() %></td>  
             <td><%= seguro.getDescripcion() %></td>  
-            <td><%= seguro.getIdTipo() %></td>  
+            <td><%= seguro.getTipo().getDescripcion() %></td>  
             <td><%= seguro.getCostoContratacion() %></td>  
             <td><%= seguro.getCostoAsegurado() %></td>  
         </tr>  

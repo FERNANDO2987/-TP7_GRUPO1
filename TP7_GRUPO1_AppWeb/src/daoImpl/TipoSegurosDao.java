@@ -97,4 +97,46 @@ public class TipoSegurosDao implements ITipoSeguroDao {
 
 
 
+	@Override
+	public TipoSeguro obtenerTipoSeguro(int id) {
+		TipoSeguro tipo = new TipoSeguro();
+		final String query = "SELECT * from tiposeguros where idTipo = ?";
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        conn = DriverManager.getConnection(host + dbName, user, pass);
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, id);
+	        rs = pstmt.executeQuery();
+
+	        rs.next();
+            tipo.setIdTipo(rs.getInt("idTipo"));
+            tipo.setDescripcion(rs.getString("descripcion"));
+
+	    }
+	    catch (Exception e) 
+	    {
+	        e.printStackTrace();
+	    } 
+	    finally 
+	    {
+	        try 
+	        {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } 
+	        catch (Exception ex) 
+	        {
+	            ex.printStackTrace();
+	        }
+	    }
+	    
+	    return tipo;
+	}
+
+
+
 }

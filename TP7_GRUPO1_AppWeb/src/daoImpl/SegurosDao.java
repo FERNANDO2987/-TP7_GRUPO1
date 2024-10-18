@@ -1,7 +1,6 @@
 package daoImpl;
 
 import java.math.BigDecimal;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.ISeguroDao;
+import dao.ITipoSeguroDao;
 import entidad.Seguro;
 
 public class SegurosDao implements ISeguroDao {
@@ -76,7 +76,9 @@ public class SegurosDao implements ISeguroDao {
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
-
+	    
+	    int idBd = 0;
+	    ITipoSeguroDao tsdao = new TipoSegurosDao();
 	    try {
 	        conn = DriverManager.getConnection(host + dbName, user, pass);
 	        String query = "SELECT idSeguro, descripcion, idTipo, costoContratacion, costoAsegurado FROM seguros";
@@ -87,9 +89,12 @@ public class SegurosDao implements ISeguroDao {
 	            Seguro seguro = new Seguro();
 	            seguro.setIdSeguro(rs.getInt("idSeguro"));
 	            seguro.setDescripcion(rs.getString("descripcion"));
-	            seguro.setIdTipo(rs.getInt("idTipo"));
+	            idBd = rs.getInt("idTipo");
 	            seguro.setCostoContratacion(rs.getDouble("costoContratacion"));
 	            seguro.setCostoAsegurado(rs.getDouble("costoAsegurado"));
+	            
+	          //nueva Linea
+	            seguro.setTipo(tsdao.obtenerTipoSeguro(idBd));
 
 	            lista.add(seguro);
 	        }
@@ -115,7 +120,9 @@ public class SegurosDao implements ISeguroDao {
 	    Connection con = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet resultado = null;
-
+	    
+	    int idBd = 0;
+	    ITipoSeguroDao tsdao = new TipoSegurosDao();
 	    try {
 	        con = DriverManager.getConnection(host + dbName, user, pass);
 	        String query = "SELECT idSeguro, descripcion, idTipo, costoContratacion, costoAsegurado FROM seguros WHERE idSeguro = ?";
@@ -127,9 +134,13 @@ public class SegurosDao implements ISeguroDao {
 	            seguro = new Seguro();
 	            seguro.setIdSeguro(resultado.getInt("idSeguro"));
 	            seguro.setDescripcion(resultado.getString("descripcion"));
-	            seguro.setIdTipo(resultado.getInt("idTipo"));
+	            idBd = resultado.getInt("idTipo");
+	            
 	            seguro.setCostoContratacion(resultado.getDouble("costoContratacion"));
 	            seguro.setCostoAsegurado(resultado.getDouble("costoAsegurado"));
+	            
+	            //nueva Linea
+	            seguro.setTipo(tsdao.obtenerTipoSeguro(idBd));
 	        }
 	    } catch (Exception e) {
 	        System.out.println("Error de conexión o consulta: " + e.getMessage());
@@ -152,7 +163,9 @@ public class SegurosDao implements ISeguroDao {
 	    Connection conn = null;  
 	    PreparedStatement pstmt = null;  
 	    ResultSet rs = null;  
-
+	    
+	    int idBd = 0;
+	    ITipoSeguroDao tsdao = new TipoSegurosDao();
 	    try {  
 	        conn = DriverManager.getConnection(host + dbName, user, pass);  
 
@@ -167,9 +180,12 @@ public class SegurosDao implements ISeguroDao {
 	            Seguro seguro = new Seguro();  
 	            seguro.setIdSeguro(rs.getInt("idSeguro"));  
 	            seguro.setDescripcion(rs.getString("descripcion"));  
-	            seguro.setIdTipo(rs.getInt("idTipo"));  
+	            idBd = rs.getInt("idTipo");
+	            
 	            seguro.setCostoContratacion(rs.getDouble("costoContratacion"));  
 	            seguro.setCostoAsegurado(rs.getDouble("costoAsegurado"));  
+	            
+	            seguro.setTipo(tsdao.obtenerTipoSeguro(idBd));
 
 	            lista.add(seguro);  
 	        }  

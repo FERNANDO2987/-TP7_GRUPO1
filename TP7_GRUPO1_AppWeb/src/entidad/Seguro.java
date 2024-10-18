@@ -5,7 +5,7 @@ public class Seguro {
 	
 	   private int idSeguro;
 	    private String descripcion;
-	    private int idTipo;
+	    private TipoSeguro tipo;
 	    private double costoContratacion;
 	    private double costoAsegurado;
 	
@@ -20,7 +20,7 @@ public class Seguro {
 		super();
 		this.idSeguro = idSeguro;
 		this.descripcion = descripcion;
-		this.idTipo = idTipo;
+		this.tipo.setIdTipo(idTipo);
 		this.costoContratacion = costoContratacion;
 		this.costoAsegurado = costoAsegurado;
 	}
@@ -47,12 +47,12 @@ public class Seguro {
 
 
 	public int getIdTipo() {
-		return idTipo;
+		return this.tipo.getIdTipo();
 	}
 
 
 	public void setIdTipo(int idTipo) {
-		this.idTipo = idTipo;
+		this.tipo.setIdTipo(idTipo);
 	}
 
 
@@ -76,9 +76,19 @@ public class Seguro {
 	}
 
 
+	public TipoSeguro getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(TipoSeguro tipo) {
+		this.tipo = tipo;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Seguro [idSeguro=" + idSeguro + ", descripcion=" + descripcion + ", idTipo=" + idTipo
+		return "Seguro [idSeguro=" + idSeguro + ", descripcion=" + descripcion + ", idTipo=" + this.tipo.getIdTipo()
 				+ ", costoContratacion=" + costoContratacion + ", costoAsegurado=" + costoAsegurado + "]";
 	}
 }

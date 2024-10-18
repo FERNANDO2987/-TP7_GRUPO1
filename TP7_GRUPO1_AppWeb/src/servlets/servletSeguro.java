@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,10 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ISeguroDao;
 import daoImpl.SegurosDao;
-import daoImpl.TipoSegurosDao;
 import entidad.Seguro;
-import entidad.TipoSeguro;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -53,7 +51,12 @@ public class servletSeguro extends HttpServlet {
             return; // Detener procesamiento
         }
 
-
+        //if(request.getParameter("agregar") != null)
+        //{
+        	ISeguroDao seguroDao = new SegurosDao();
+        	int resultadoID = seguroDao.numeroNuevoRegistro();
+        	request.setAttribute("IDProximo", resultadoID);
+        //}
         if (request.getParameter("btnAceptar") != null) {
             String descripcion = request.getParameter("txtDescripcion");
             String tipoSeguroIdStr = request.getParameter("seguro");
@@ -79,12 +82,14 @@ public class servletSeguro extends HttpServlet {
                 s.setCostoContratacion(costoContratacion);
                 s.setCostoAsegurado(costoMaximo);
 
-                SegurosDao sdao = new SegurosDao();
+                ISeguroDao sdao = new SegurosDao();
                 int idSeguro = sdao.agregarSeguro(s); // Ahora esto devuelve el ID del seguro  
 
-                request.setAttribute("idSeguro", idSeguro);  
-                RequestDispatcher rd = request.getRequestDispatcher("/Agregar.jsp");
-                rd.forward(request, response);
+                request.setAttribute("idSeguro", idSeguro);
+                
+            	resultadoID = sdao.numeroNuevoRegistro();
+            	request.setAttribute("IDProximo", resultadoID);
+                
             } catch (NumberFormatException e) {
                 request.setAttribute("errorMessage", "Error al parsear números. Verifique los campos de costo.");
                 RequestDispatcher rd = request.getRequestDispatcher("/Agregar.jsp");
@@ -95,6 +100,9 @@ public class servletSeguro extends HttpServlet {
                 rd.forward(request, response);
             }
         }
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/Agregar.jsp");
+        rd.forward(request, response);
     }
 
     
